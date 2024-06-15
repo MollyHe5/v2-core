@@ -71,8 +71,9 @@ contract UniswapV2ERC20 is IUniswapV2ERC20 {
     }
 
     function transferFrom(address from, address to, uint value) external returns (bool) {
-        if (allowance[from][msg.sender] != uint(-1)) {
-            allowance[from][msg.sender] = allowance[from][msg.sender].sub(value);
+        uint allowance_from = allowance[from][msg.sender];
+        if (allowance_from != uint(-1)) {
+            allowance[from][msg.sender] = allowance_from.sub(value);
         }
         _transfer(from, to, value);
         return true;
